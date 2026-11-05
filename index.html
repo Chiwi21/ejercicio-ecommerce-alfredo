@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ecommerce con JavaScript: lista de productos, carrito de compras y precio total en tiempo real. Ejercicio de Alfredo Chiguano." />
+  <title>Ecommerce JS | Alfredo Chiguano</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#productos" aria-label="Ir al catálogo de productos">
+        <span class="brand__mark" aria-hidden="true">🛍️</span>
+        <span class="brand__text">
+          <strong>Ecommerce JS</strong>
+          <small>Ejercicio de JavaScript</small>
+        </span>
+      </a>
+
+      <a class="cart-link" href="#carrito">
+        <span aria-hidden="true">🛒</span>
+        Carrito
+        <span class="cart-link__count" id="cart-count" aria-live="polite">0</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="eyebrow">Práctica de JavaScript</p>
+          <h1>Productos destacados</h1>
+          <p class="hero__text">
+            Elige tus productos favoritos y observa cómo el carrito suma los precios
+            automáticamente con JavaScript puro.
+          </p>
+        </div>
+
+        <div class="hero__note">
+          <span aria-hidden="true">⚡</span>
+          <p>Carrito con <strong>localStorage</strong>: se conserva al recargar.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container shop" id="productos" aria-labelledby="products-title">
+      <div class="products">
+        <div class="section-heading">
+          <h2 id="products-title">Catálogo</h2>
+          <p>6 productos disponibles</p>
+        </div>
+
+        <div class="product-grid" id="product-grid">
+          <article class="product-card" data-id="audifonos" data-name="Audífonos Bluetooth" data-price="29.99">
+            <div class="product-card__media media--mint" aria-hidden="true">🎧</div>
+            <div class="product-card__body">
+              <span class="product-card__tag">Audio</span>
+              <h3 class="product-card__name">Audífonos Bluetooth</h3>
+              <p class="product-card__desc">Sonido envolvente y hasta 20 horas de batería.</p>
+              <div class="product-card__footer">
+                <span class="product-card__price">$29.99</span>
+                <button class="btn btn--add" type="button" data-add aria-label="Añadir Audífonos Bluetooth al carrito">
+                  Añadir al carrito
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="teclado" data-name="Teclado mecánico" data-price="49.50">
+            <div class="product-card__media media--sand" aria-hidden="true">⌨️</div>
+            <div class="product-card__body">
+              <span class="product-card__tag">Accesorios</span>
+              <h3 class="product-card__name">Teclado mecánico</h3>
+              <p class="product-card__desc">Teclas táctiles con iluminación ajustable.</p>
+              <div class="product-card__footer">
+                <span class="product-card__price">$49.50</span>
+                <button class="btn btn--add" type="button" data-add aria-label="Añadir Teclado mecánico al carrito">
+                  Añadir al carrito
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="mouse" data-name="Mouse inalámbrico" data-price="19.99">
+            <div class="product-card__media media--sky" aria-hidden="true">🖱️</div>
+            <div class="product-card__body">
+              <span class="product-card__tag">Accesorios</span>
+              <h3 class="product-card__name">Mouse inalámbrico</h3>
+              <p class="product-card__desc">Diseño ergonómico y conexión estable.</p>
+              <div class="product-card__footer">
+                <span class="product-card__price">$19.99</span>
+                <button class="btn btn--add" type="button" data-add aria-label="Añadir Mouse inalámbrico al carrito">
+                  Añadir al carrito
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="monitor" data-name="Monitor LED 24 pulgadas" data-price="149.00">
+            <div class="product-card__media media--lilac" aria-hidden="true">🖥️</div>
+            <div class="product-card__body">
+              <span class="product-card__tag">Pantallas</span>
+              <h3 class="product-card__name">Monitor LED 24 pulgadas</h3>
+              <p class="product-card__desc">Full HD con bordes delgados y colores nítidos.</p>
+              <div class="product-card__footer">
+                <span class="product-card__price">$149.00</span>
+                <button class="btn btn--add" type="button" data-add aria-label="Añadir Monitor LED 24 pulgadas al carrito">
+                  Añadir al carrito
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="camara" data-name="Cámara web HD" data-price="39.90">
+            <div class="product-card__media media--rose" aria-hidden="true">📷</div>
+            <div class="product-card__body">
+              <span class="product-card__tag">Video</span>
+              <h3 class="product-card__name">Cámara web HD</h3>
+              <p class="product-card__desc">Ideal para clases, reuniones y videollamadas.</p>
+              <div class="product-card__footer">
+                <span class="product-card__price">$39.90</span>
+                <button class="btn btn--add" type="button" data-add aria-label="Añadir Cámara web HD al carrito">
+                  Añadir al carrito
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" data-id="parlante" data-name="Parlante portátil" data-price="24.75">
+            <div class="product-card__media media--lime" aria-hidden="true">🔊</div>
+            <div class="product-card__body">
+              <span class="product-card__tag">Audio</span>
+              <h3 class="product-card__name">Parlante portátil</h3>
+              <p class="product-card__desc">Compacto, resistente y con gran sonido.</p>
+              <div class="product-card__footer">
+                <span class="product-card__price">$24.75</span>
+                <button class="btn btn--add" type="button" data-add aria-label="Añadir Parlante portátil al carrito">
+                  Añadir al carrito
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="cart" id="carrito" aria-labelledby="cart-title">
+        <div class="cart__header">
+          <h2 id="cart-title">Tu carrito</h2>
+          <span class="cart__badge" id="cart-badge">0 artículos</span>
+        </div>
+
+        <p class="cart__empty" id="cart-empty">
+          <span class="cart__empty-icon" aria-hidden="true">🛒</span>
+          El carrito está vacío.<br />
+          Añade un producto para comenzar.
+        </p>
+
+        <ul class="cart__list" id="cart-list"></ul>
+
+        <div class="cart__summary" id="cart-summary" hidden>
+          <div class="cart__row">
+            <span>Productos agregados</span>
+            <span id="summary-items">0</span>
+          </div>
+          <div class="cart__row cart__row--total">
+            <span>Precio total</span>
+            <span id="cart-total">$0.00</span>
+          </div>
+        </div>
+
+        <button class="btn btn--ghost" id="clear-cart" type="button" disabled>Vaciar carrito</button>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>Ejercicio de JavaScript — <strong>Alfredo Chiguano</strong></p>
+      <p>Carrito de compras con HTML, CSS y JavaScript puro.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <template id="cart-item-template">
+    <li class="cart-item">
+      <div class="cart-item__details">
+        <p class="cart-item__name"></p>
+        <p class="cart-item__unit"></p>
+      </div>
+      <div class="cart-item__actions">
+        <div class="qty" role="group" aria-label="Cantidad">
+          <button class="qty__btn" type="button" data-action="decrease" aria-label="Quitar una unidad">−</button>
+          <span class="qty__value"></span>
+          <button class="qty__btn" type="button" data-action="increase" aria-label="Añadir una unidad">+</button>
+        </div>
+        <p class="cart-item__subtotal"></p>
+        <button class="remove" type="button" data-action="remove" aria-label="Eliminar producto">×</button>
+      </div>
+    </li>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
